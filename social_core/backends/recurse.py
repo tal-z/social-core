@@ -17,11 +17,12 @@ class RecurseOAuth2(BaseOAuth2):
 
     def get_user_details(self, response):
         """Return user details from Recurse account"""
-        return {'username': response.get('login') or '',
+        return {'username': response.get('name') or '',
                 'email': response.get('email') or '',
-                'name': response.get('name') or ''}
+                'first_name': response.get('first_name') or '',
+                'last_name': response.get('last_name') or ''}
 
     def user_data(self, access_token, *args, **kwargs):
         """Loads user data from service"""
-        url = 'https://www.recurse.com/api/v1/profiles/me' #+ urlencode({'access_token': access_token})
+        url = 'https://www.recurse.com/api/v1/profiles/me' 
         return self.get_json(url,  params={'access_token': access_token})
